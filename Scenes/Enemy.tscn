@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://space_attack_assets/assets/sprites/enemyRed5.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/EnemyProjectile.tscn" type="PackedScene" id=3]
+[ext_resource path="res://space_attack_assets/assets/audio/ShootEnemy.wav" type="AudioStream" id=4]
+[ext_resource path="res://space_attack_assets/assets/audio/Explosion.wav" type="AudioStream" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 47.6141, 35.7472 )
+
+[node name="Enemy" type="Area2D" groups=[
+"Enemies",
+]]
+script = ExtResource( 1 )
+Projectile = ExtResource( 3 )
+shoot_audio = ExtResource( 4 )
+explosion = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
